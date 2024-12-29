@@ -86,21 +86,3 @@ License
 This project is open-source and available under the MIT License.
 
 Made with ❤️ for the Ummah!
-
-markdown
-Copy code
-
-### Explanation:
-
--   **Installation Section**: Explains how to clone the repo and run it locally.
--   **Usage Section**: Gives a brief on how to use the app.
--   **Technologies Section**: Lists all the technologies used in the app.
--   **Screenshots Section**: You can replace the image links with your actual screenshots if you have any in your repository.
--   **Contributing Section**: Encourages others to contribute and provides basic instructions for contributing.
--   **License Section**: The app is open-source and you can add the MIT License (or any other license) in your repo.
-
-### To Use:
-
-1. Copy the above markdown into a file named `README.md`.
-2. Replace any placeholder information like the repo URL, screenshots, and other sections as needed.
-3. Upload it to the root of your GitHub repository.
