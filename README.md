@@ -40,10 +40,15 @@ Copy code
 npm start
 Open the app in your browser:
 
-🖌️ Design and Theme
+---
+
+### 🖌️ Design and Theme
+
 Colors: Black (#000), Pink (#FF69B4), and White (#FFF).
 Font: Bold and clean typography for readability.
 Transitions: Smooth hover and click animations for an interactive experience.
+
+---
 
 ### 🤝 Contribution
 
@@ -63,24 +68,34 @@ bash
 Copy code
 git push origin feature-name
 Create a pull request.
-📜 License
+
+---
+
+### 📜 License
+
 This project is licensed under the MIT License.
+
+---
 
 ### 🧡 Acknowledgements
 
 Quran.com for providing the API.
-Inspiration from the beauty and complexity of the Quran.
-Everyone contributing to open-source development.
-💡 Ideas for Improvement
-Add a timer or riddle-solving challenge.
-Implement a scoring system for gamification.
-Expand to include translations and tafsir.
-Add audio.
+
+---
+
+### 💡 Ideas for Improvement
+
+-   Add a timer or riddle-solving challenge.
+-   Implement a scoring system for gamification.
+-   Expand to include translations and tafsir.
+-   Add audio.
+
+---
 
 ### 📩 Contact
 
 For any questions or suggestions, please reach out at:
 
-Email: mustaphanafeh@gmail.com
-GitHub: Mustapha-nafeh
-LinkedIn: Mostafa Nafeh
+-   Email: mustaphanafeh@gmail.com
+-   GitHub: Mustapha-nafeh
+-   LinkedIn: Mostafa Nafeh
