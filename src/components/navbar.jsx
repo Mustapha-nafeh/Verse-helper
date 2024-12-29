@@ -1,192 +1,141 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 const Navbar = () => {
-    // State to control the mobile menu visibility and Riddles dropdown
-    const [isOpen, setIsOpen] = useState(false);
-    const [isRiddlesMenuOpen, setIsRiddlesMenuOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // Refs to detect clicks outside of the dropdown and mobile menu
-    const menuRef = useRef(null);
-    const mobileMenuButtonRef = useRef(null);
-    const mobileMenuRef = useRef(null);
+    // Navigation items configuration
+    const navItems = [
+        { label: "Home", path: "/" },
+        { label: "Pages", path: "/pages" },
+        {
+            label: "Riddles",
+            children: [
+                { label: "By Page", path: "/riddles/by-page" },
+                { label: "By Verse", path: "/riddles/by-verse" },
+            ],
+        },
+    ];
 
-    // Function to toggle the mobile menu
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+    // NavItem component for both desktop and mobile
+    const NavItem = ({ item, mobile = false }) => {
+        const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    // Function to toggle the Riddles dropdown menu on click
-    const toggleRiddlesMenu = () => {
-        setIsRiddlesMenuOpen(!isRiddlesMenuOpen);
-    };
-
-    // Close dropdown if clicked outside of the menu or mobile menu
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            // Close the Riddles dropdown if clicked outside
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsRiddlesMenuOpen(false);
-            }
-
-            // Close the mobile menu if clicked outside
-            if (
-                mobileMenuRef.current &&
-                !mobileMenuRef.current.contains(event.target) &&
-                !mobileMenuButtonRef.current.contains(event.target)
-            ) {
-                setIsOpen(false);
-            }
+        const closeMenus = () => {
+            setIsMobileMenuOpen(false);
+            setIsDropdownOpen(false);
         };
 
-        // Adding event listener to document to listen for clicks outside
-        document.addEventListener("mousedown", handleClickOutside);
+        if (item.children) {
+            return (
+                <div className="relative">
+                    <button
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className={`flex items-center space-x-1 group ${
+                            mobile ? "w-full justify-center py-2" : ""
+                        }`}
+                    >
+                        <span className="hover:text-pink-500 transition duration-300">
+                            {item.label}
+                        </span>
+                        <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                                isDropdownOpen ? "rotate-180" : ""
+                            }`}
+                        />
+                    </button>
 
-        // Cleanup the event listener on component unmount
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+                    {isDropdownOpen && (
+                        <div
+                            className={`${
+                                mobile
+                                    ? "flex flex-col items-center space-y-2 w-full p-3 rounded-lg gap-2 "
+                                    : "absolute -left-6 mt-2 w-32 rounded-md shadow-lg bg-black border border-pink-500/20"
+                            } bg-gray-200 bg-opacity-20 `}
+                        >
+                            {item.children.map((child) => (
+                                <Link
+                                    key={child.path}
+                                    to={child.path}
+                                    onClick={closeMenus}
+                                    className={`
+                                        block whitespace-nowrap hover:text-pink-500 transition duration-300
+                                        ${
+                                            mobile
+                                                ? ""
+                                                : "px-4 hover:bg-pink-500/10"
+                                        }
+                                    `}
+                                >
+                                    {child.label}
+                                </Link>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        return (
+            <Link
+                to={item.path}
+                onClick={closeMenus}
+                className={`
+                    hover:text-pink-500 transition duration-300
+                    ${mobile ? "py-2" : ""}
+                `}
+            >
+                {item.label}
+            </Link>
+        );
+    };
 
     return (
-        <nav className="bg-black text-white py-4 px-6 shadow-md sticky top-0 z-50">
-            <div className="container mx-auto flex items-center justify-between">
-                <div className="text-pink-500 text-2xl font-bold">
-                    <Link to="/">Quran Riddle</Link>
-                </div>
-
-                {/* Desktop Menu */}
-                <ul className="hidden md:flex space-x-8 mr-12">
-                    <li className="hover:-translate-y-1 hover:font-bold transform transition duration-300">
-                        <Link
-                            to="/"
-                            className="hover:text-pink-500 transition duration-300"
-                        >
-                            Home
-                        </Link>
-                    </li>
-                    <li className="hover:-translate-y-1 hover:font-bold transform transition duration-300">
-                        <Link
-                            to="/pages"
-                            className="hover:text-pink-500 transition duration-300"
-                        >
-                            Pages
-                        </Link>
-                    </li>
-                    <li
-                        ref={menuRef} // Added ref for detecting outside clicks
-                        className="relative cursor-pointer hover:text-pink-500 transition duration-300"
-                        onClick={toggleRiddlesMenu} // Toggle on click
+        <nav className="bg-black text-white shadow-lg sticky top-0 z-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">
+                    {/* Logo */}
+                    <Link
+                        to="/"
+                        className="text-pink-500 text-2xl font-bold hover:text-pink-400 transition duration-300"
                     >
-                        Riddles
-                        {/* Riddles Dropdown Menu */}
-                        {isRiddlesMenuOpen && (
-                            <div className="absolute -left-6 mt-2 w-32 bg-gray-400 bg-opacity-30 text-white rounded-md shadow-lg overflow-hidden transition-opacity ease-in-out duration-300 z-50">
-                                <Link
-                                    to="/riddles/by-page"
-                                    className="block px-4 py-2 hover:bg-pink-500 transition duration-300"
-                                    onClick={() => setIsRiddlesMenuOpen(false)} // Close menu on click
-                                >
-                                    By Page
-                                </Link>
-                                <Link
-                                    to="/riddles/by-verse"
-                                    className="block px-4 py-2 hover:bg-pink-500 transition duration-300"
-                                    onClick={() => setIsRiddlesMenuOpen(false)} // Close menu on click
-                                >
-                                    By Verse
-                                </Link>
-                            </div>
-                        )}
-                    </li>
-                </ul>
+                        Quran Riddle
+                    </Link>
 
-                {/* Mobile Menu Button */}
-                <div className="md:hidden flex items-center">
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center space-x-8 mr-6">
+                        {navItems.map((item) => (
+                            <NavItem key={item.label} item={item} />
+                        ))}
+                    </div>
+
+                    {/* Mobile menu button */}
                     <button
-                        ref={mobileMenuButtonRef} // Added ref for detecting outside clicks
-                        id="mobile-menu-button"
-                        className="focus:outline-none text-pink-500"
-                        onClick={toggleMenu}
+                        className="md:hidden text-pink-500 hover:text-pink-400 transition duration-300"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h16m-7 6h7"
-                            />
-                        </svg>
+                        {isMobileMenuOpen ? (
+                            <X className="h-6 w-6" />
+                        ) : (
+                            <Menu className="h-6 w-6" />
+                        )}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu (Toggle visibility based on `isOpen`) */}
-            <div
-                ref={mobileMenuRef} // Added ref for detecting outside clicks
-                className={`${
-                    isOpen ? "block animate-fadeIn" : "hidden"
-                } md:hidden bg-black bg-opacity-50`}
-            >
-                <ul className="flex flex-col items-center space-y-4 py-4">
-                    <li>
-                        <Link
-                            to="/"
-                            className="hover:text-pink-500 transition duration-300"
-                            onClick={() => setIsOpen(false)} // Close menu on click
-                        >
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to="/pages"
-                            className="hover:text-pink-500 transition duration-300"
-                            onClick={() => setIsOpen(false)} // Close menu on click
-                        >
-                            Pages
-                        </Link>
-                    </li>
-                    <li
-                        // ref={menuRef} // Added ref for detecting outside clicks
-                        className="relative cursor-pointer hover:text-pink-500 transition duration-300"
-                        onClick={toggleRiddlesMenu} // Toggle on click
-                    >
-                        Riddles
-                        {/* Riddles Dropdown Menu */}
-                        {isRiddlesMenuOpen && (
-                            <div className="absolute -left-6 mt-2 w-32 bg-gray-400 bg-opacity-30 text-white rounded-md shadow-lg overflow-hidden transition-opacity ease-in-out duration-300 z-50">
-                                <Link
-                                    to="/riddles/by-page"
-                                    className="block px-4 py-2 hover:bg-pink-500 transition duration-300"
-                                    onClick={() => {
-                                        setIsRiddlesMenuOpen(false);
-                                        setIsOpen(false);
-                                    }} // Close menu on click
-                                >
-                                    By Page
-                                </Link>
-                                <Link
-                                    to="/riddles/by-verse"
-                                    className="block px-4 py-2 hover:bg-pink-500 transition duration-300"
-                                    onClick={() => {
-                                        setIsRiddlesMenuOpen(false);
-                                        setIsOpen(false);
-                                    }} // Close menu on click
-                                >
-                                    By Verse
-                                </Link>
+            {/* Mobile Navigation */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-black/95 backdrop-blur-sm border-b-4 border-pink-500/20">
+                    <div className="px-2 pt-2 pb-3 space-y-1 flex flex-col items-center">
+                        {navItems.map((item) => (
+                            <div key={item.label} className="py-1">
+                                <NavItem item={item} mobile={true} />
                             </div>
-                        )}
-                    </li>
-                </ul>
-            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </nav>
     );
 };
