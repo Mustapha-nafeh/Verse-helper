@@ -1,88 +1,90 @@
-# Quran Riddle App
+# Quran Riddle 🕌✨
 
-Welcome to the **Quran Riddle App**! This interactive app is designed to enhance your Quranic memorization through engaging riddles based on verses and pages of the Quran. It combines the power of active recall with a fun challenge format to help you strengthen your connection with the Quran.
+Quran Riddle is a web-based riddle game where a random Quran page/verse number is generated. Initially, the page/verse is hidden, giving you time to recall it, to be revealed after 5 seconds. It's a unique and engaging way to interact with the Quran!
 
-## Features
+---
 
--   **Verse Riddles**: Challenge yourself by guessing verses based on a randomly generated riddle.
--   **Page Riddles**: Test your memory by identifying which page a given riddle refers to.
--   **Interactive Learning**: Receive instant feedback to improve your memorization and recall skills.
--   **Responsive Design**: Built with React and Tailwind CSS for a sleek and responsive experience across all devices.
+## 🚀 Features
 
-## Table of Contents
+-   **Random Page Generation**: Generates a random page number from the Quran (1-606).
+-   **Dynamic Verse Display**: Shows the first verse initially, with all verses revealed upon click.
+-   **Interactive Countdown**: Provides a suspenseful countdown before revealing the page.
+-   **Elegant UI**: Styled with a sleek black, pink, and white theme.
 
--   [Installation](#installation)
--   [Usage](#usage)
--   [Technologies](#technologies)
--   [Screenshots](#screenshots)
--   [Contributing](#contributing)
--   [License](#license)
+---
 
-## Installation
+## 🛠️ Tech Stack
 
-### Prerequisites
+-   **React**: Frontend library for building the UI.
+-   **Axios**: For API calls to fetch Quran verses.
+-   **Quran.com API**: Provides accurate Quranic data.
 
-Before you start, make sure you have the following installed:
+---
 
--   **Node.js**: To run the application locally.
--   **npm** (Node Package Manager): For installing dependencies.
+## ⚙️ Installation and Setup
 
-### Steps to Run Locally
-
-1. **Clone the repository**:
+1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/quran-riddle-app.git
-    Navigate to the project directory:
+    git clone https://github.com/Mustapha-nafeh/Verse-helper.git
+    cd Verse-helper
+    Install dependencies:
     ```
 
 bash
 Copy code
-cd quran-riddle-app
-Install dependencies:
-
-bash
-Copy code
 npm install
-Start the development server:
+Run the development server:
 
 bash
 Copy code
 npm start
-This will launch the app in your default browser at http://localhost:3000.
+Open the app in your browser:
 
-Usage
-Upon launching the app, you'll see a clean, minimalist design where you can select between Verse Riddles or Page Riddles.
-The Riddle Challenge will provide clues about the verse or page, and you can try to guess it.
-After each attempt, you'll get feedback to help you remember better.
-Use the app daily to improve your Quranic memorization skills.
-Mobile Experience
-The app is fully responsive, ensuring a smooth experience on both desktop and mobile devices. The mobile navigation menu makes it easy to access all app sections on smaller screens.
+arduino
+Copy code
+http://localhost:3000
+🌐 API Usage
+This app uses the Quran.com API to fetch Quranic verses. The endpoint used is:
 
-Technologies
-This app is built using the following technologies:
+ruby
+Copy code
+https://api.quran.com/api/v4/quran/verses/uthmani?page_number={page}
+🖌️ Design and Theme
+Colors: Black (#000), Pink (#FF69B4), and White (#FFF).
+Font: Bold and clean typography for readability.
+Transitions: Smooth hover and click animations for an interactive experience.
+🤝 Contribution
+Contributions are welcome! Please follow these steps:
 
-React: A JavaScript library for building user interfaces.
-Tailwind CSS: A utility-first CSS framework used for building custom designs.
-React Router: For handling in-app navigation.
-Lucide Icons: Used for simple, scalable icons.
-IntersectionObserver API: For triggering animations as sections come into view.
-Screenshots
-An example of the landing page where users can start the challenge.
+Fork the repository.
+Create a new feature branch:
+bash
+Copy code
+git checkout -b feature-name
+Commit your changes:
+bash
+Copy code
+git commit -m "Add your message here"
+Push the branch:
+bash
+Copy code
+git push origin feature-name
+Create a pull request.
+📜 License
+This project is licensed under the MIT License.
 
-The page where users can solve riddles based on Quranic verses and pages.
+🧡 Acknowledgements
+Quran.com for providing the API.
+Inspiration from the beauty and complexity of the Quran.
+Everyone contributing to open-source development.
+💡 Ideas for Improvement
+Add a timer or riddle-solving challenge.
+Implement a scoring system for gamification.
+Expand to include translations and tafsir.
+Add audio.
+📩 Contact
+For any questions or suggestions, please reach out at:
 
-Contributing
-We welcome contributions to make the Quran Riddle App even better! If you have suggestions or want to fix bugs, feel free to fork the repository, make changes, and submit a pull request.
-
-To contribute:
-
-Fork the repo.
-Create a branch (git checkout -b feature/your-feature-name).
-Make your changes.
-Commit your changes (git commit -am 'Add a new feature').
-Push to the branch (git push origin feature/your-feature-name).
-Create a new Pull Request.
-License
-This project is open-source and available under the MIT License.
-
-Made with ❤️ for the Ummah!
+Email: mustaphanafeh@gmail.com
+GitHub: Mustapha-nafeh
+LinkedIn: Mostafa Nafeh
