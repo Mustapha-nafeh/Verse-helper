@@ -40,20 +40,13 @@ Copy code
 npm start
 Open the app in your browser:
 
-arduino
-Copy code
-http://localhost:3000
-🌐 API Usage
-This app uses the Quran.com API to fetch Quranic verses. The endpoint used is:
-
-ruby
-Copy code
-https://api.quran.com/api/v4/quran/verses/uthmani?page_number={page}
 🖌️ Design and Theme
 Colors: Black (#000), Pink (#FF69B4), and White (#FFF).
 Font: Bold and clean typography for readability.
 Transitions: Smooth hover and click animations for an interactive experience.
-🤝 Contribution
+
+### 🤝 Contribution
+
 Contributions are welcome! Please follow these steps:
 
 Fork the repository.
@@ -73,7 +66,8 @@ Create a pull request.
 📜 License
 This project is licensed under the MIT License.
 
-🧡 Acknowledgements
+### 🧡 Acknowledgements
+
 Quran.com for providing the API.
 Inspiration from the beauty and complexity of the Quran.
 Everyone contributing to open-source development.
@@ -82,7 +76,9 @@ Add a timer or riddle-solving challenge.
 Implement a scoring system for gamification.
 Expand to include translations and tafsir.
 Add audio.
-📩 Contact
+
+### 📩 Contact
+
 For any questions or suggestions, please reach out at:
 
 Email: mustaphanafeh@gmail.com
