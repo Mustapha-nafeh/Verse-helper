@@ -9,9 +9,12 @@ const PageRiddler = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const [isRevealed, setIsRevealed] = useState(false);
+    const [min, setMin] = useState();
+    const [max, setMax] = useState();
 
     const generateRandomPage = () => {
-        return Math.floor(Math.random() * 604) + 1;
+        // return Math.floor(Math.random() * 604) + 1;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
     const fetchVerses = async (page) => {
@@ -76,6 +79,29 @@ const PageRiddler = () => {
                 <h1 className="text-4xl font-bold mb-6 text-center">
                     Riddle the page
                 </h1>
+
+                <div className="flex justify-center space-x-4 mb-4">
+                    <div className="flex flex-col items-center space-y-4">
+                        <label className="text-white">
+                            Min:
+                            <input
+                                type="number"
+                                value={min}
+                                onChange={(e) => setMin(Number(e.target.value))}
+                                className="text-black ml-2 p-1 rounded"
+                            />
+                        </label>
+                        <label className="text-white">
+                            Max:
+                            <input
+                                type="number"
+                                value={max}
+                                onChange={(e) => setMax(Number(e.target.value))}
+                                className="text-black ml-2 p-1 rounded"
+                            />
+                        </label>
+                    </div>
+                </div>
 
                 <div className="flex flex-col items-center space-y-4">
                     <button
