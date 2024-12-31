@@ -5,6 +5,7 @@ import axios from "axios";
 const PageRiddler = () => {
     const [pageNumber, setPageNumber] = useState(null);
     const [pageData, setPageData] = useState(null);
+    const [surahData, setSurahData] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [countdown, setCountdown] = useState(0);
@@ -22,14 +23,25 @@ const PageRiddler = () => {
         setPageData(null);
 
         try {
-            const response = await axios({
+            const pageResponse = await axios({
                 method: "get",
                 url: `https://api.quran.com/api/v4/quran/verses/uthmani?page_number=${page}`,
                 headers: {
                     Accept: "application/json",
                 },
             });
-            setPageData(response.data);
+            setPageData(pageResponse.data);
+
+            let surah_id = pageResponse.data.verses[0].verse_key.split(":")[0];
+            const surahResponse = await axios({
+                method: "get",
+                url: `https://api.quran.com/api/v4/chapters/${surah_id}`,
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+            setSurahData(surahResponse.data);
+
             setIsFetching(false);
         } catch (error) {
             console.error(error);
@@ -86,7 +98,7 @@ const PageRiddler = () => {
                             Min:
                             <input
                                 type="number"
-                                value={min}
+                                value={min || ''}
                                 onChange={(e) => setMin(Number(e.target.value))}
                                 className="text-black ml-2 p-1 rounded"
                             />
@@ -95,7 +107,7 @@ const PageRiddler = () => {
                             Max:
                             <input
                                 type="number"
-                                value={max}
+                                value={max || ''}
                                 onChange={(e) => setMax(Number(e.target.value))}
                                 className="text-black ml-2 p-1 rounded"
                             />
@@ -107,7 +119,7 @@ const PageRiddler = () => {
                     <button
                         onClick={handleButtonClick}
                         className="bg-pink-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-pink-700 transition"
-                        disabled={countdown > 0}
+                        // disabled={countdown > 0}
                     >
                         Generate a page number
                     </button>
@@ -141,9 +153,15 @@ const PageRiddler = () => {
                                 className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300"
                                 onClick={() => setIsExpanded(!isExpanded)}
                             >
-                                <h2 className="font-semibold text-xl mb-4 text-white">
-                                    Page {pageNumber}
-                                </h2>
+                                {isExpanded ? (
+                                    <h2 className="font-semibold text-xl mb-4 text-white">
+                                        Page {pageNumber} - {surahData?.chapter?.name_arabic}
+                                    </h2>
+                                ) : (
+                                    <h2 className="font-semibold text-xl mb-4 text-white">
+                                        Page {pageNumber}
+                                    </h2>
+                                )}
 
                                 {isFetching ? (
                                     <p className="text-center">
@@ -155,7 +173,7 @@ const PageRiddler = () => {
                                             <div className="space-y-4">
                                                 {pageData?.verses?.map(
                                                     (verse, index) => (
-                                                        <p
+                                                        <div
                                                             key={
                                                                 verse.id ||
                                                                 index
@@ -191,7 +209,7 @@ const PageRiddler = () => {
                                                                     verse.text_uthmani
                                                                 }
                                                             </span>
-                                                        </p>
+                                                        </div>
                                                     )
                                                 )}
                                             </div>
@@ -206,7 +224,7 @@ const PageRiddler = () => {
                                                         "No verses found."}
                                                 </p>
                                                 <p className="text-center text-white text-xs mt-4 ">
-                                                    Click to expand
+                                                    Click to expand & reveal Surah
                                                 </p>
                                             </div>
                                         )}

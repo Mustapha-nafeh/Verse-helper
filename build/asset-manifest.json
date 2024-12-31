@@ -1,15 +1,27 @@
 {
   "files": {
     "main.css": "/Verse-helper/static/css/main.00bf478e.css",
+<<<<<<< Updated upstream
     "main.js": "/Verse-helper/static/js/main.0edcf25c.js",
     "static/js/488.ee33f29e.chunk.js": "/Verse-helper/static/js/488.ee33f29e.chunk.js",
     "index.html": "/Verse-helper/index.html",
     "main.00bf478e.css.map": "/Verse-helper/static/css/main.00bf478e.css.map",
     "main.0edcf25c.js.map": "/Verse-helper/static/js/main.0edcf25c.js.map",
+=======
+    "main.js": "/Verse-helper/static/js/main.b19583e2.js",
+    "static/js/488.ee33f29e.chunk.js": "/Verse-helper/static/js/488.ee33f29e.chunk.js",
+    "index.html": "/Verse-helper/index.html",
+    "main.00bf478e.css.map": "/Verse-helper/static/css/main.00bf478e.css.map",
+    "main.b19583e2.js.map": "/Verse-helper/static/js/main.b19583e2.js.map",
+>>>>>>> Stashed changes
     "488.ee33f29e.chunk.js.map": "/Verse-helper/static/js/488.ee33f29e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.00bf478e.css",
+<<<<<<< Updated upstream
     "static/js/main.0edcf25c.js"
+=======
+    "static/js/main.b19583e2.js"
+>>>>>>> Stashed changes
   ]
 }
