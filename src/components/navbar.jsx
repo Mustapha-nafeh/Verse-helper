@@ -12,6 +12,7 @@ const Navbar = () => {
         {
             label: "Riddles",
             children: [
+                { label: "Random Verse", path: "/riddles/random" },
                 { label: "By Page", path: "/riddles/by-page" },
                 { label: "By Verse", path: "/riddles/by-verse" },
             ],
@@ -51,7 +52,7 @@ const Navbar = () => {
                             className={`${
                                 mobile
                                     ? "flex flex-col items-center space-y-2 w-full p-3 rounded-lg gap-2 "
-                                    : "absolute -left-6 mt-2 w-32 rounded-md shadow-lg bg-black border border-pink-500/20"
+                                    : "absolute -left-6 mt-2 rounded-md shadow-lg bg-black border border-pink-500/20"
                             } bg-gray-200 bg-opacity-20 `}
                         >
                             {item.children.map((child) => (
