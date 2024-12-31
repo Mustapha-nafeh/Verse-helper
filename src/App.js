@@ -7,6 +7,7 @@ import VerseRiddler from "./components/verse-riddler";
 import Navbar from "./components/navbar";
 import PageRiddler from "./components/page-riddler";
 import LandingPage from "./components/home";
+import NotFound from "./components/notfound";
 
 const App = () => {
     return (
@@ -27,6 +28,7 @@ const App = () => {
                                     path="/riddles/by-page"
                                     element={<PageRiddler />}
                                 />
+                                <Route path="*" element={<NotFound />} />
                             </Routes>
                         </div>
                     </div>
