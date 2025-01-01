@@ -10,8 +10,8 @@ const PageRiddler = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const [isRevealed, setIsRevealed] = useState(false);
-    const [min, setMin] = useState();
-    const [max, setMax] = useState();
+    const [min, setMin] = useState(1);
+    const [max, setMax] = useState(604);
 
     const generateRandomPage = () => {
         // return Math.floor(Math.random() * 604) + 1;
@@ -93,23 +93,23 @@ const PageRiddler = () => {
                 </h1>
 
                 <div className="flex justify-center space-x-4 mb-4">
-                    <div className="flex flex-col items-center space-y-4">
-                        <label className="text-white">
+                    <div className="flex flex-col items-center space-y-4 ">
+                        <label className="text-white ">
                             Min:
                             <input
                                 type="number"
-                                value={min || ''}
+                                value={min || ""}
                                 onChange={(e) => setMin(Number(e.target.value))}
-                                className="text-black ml-2 p-1 rounded"
+                                className="text-black ml-2 p-1 rounded max-w-32"
                             />
                         </label>
                         <label className="text-white">
                             Max:
                             <input
                                 type="number"
-                                value={max || ''}
+                                value={max || ""}
                                 onChange={(e) => setMax(Number(e.target.value))}
-                                className="text-black ml-2 p-1 rounded"
+                                className="text-black ml-2 p-1 rounded max-w-32"
                             />
                         </label>
                     </div>
@@ -123,6 +123,9 @@ const PageRiddler = () => {
                     >
                         Generate a page number
                     </button>
+                    <p className="text-center text-white text-xs">
+                        Try to guess the first verse of the page
+                    </p>
 
                     {pageNumber && countdown > 0 && (
                         <div className="w-full">
@@ -150,12 +153,13 @@ const PageRiddler = () => {
                     {pageNumber && isRevealed && (
                         <div className="w-full">
                             <div
-                                className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300"
+                                className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300 "
                                 onClick={() => setIsExpanded(!isExpanded)}
                             >
                                 {isExpanded ? (
                                     <h2 className="font-semibold text-xl mb-4 text-white">
-                                        Page {pageNumber} - {surahData?.chapter?.name_arabic}
+                                        Page {pageNumber} -{" "}
+                                        {surahData?.chapter?.name_arabic}
                                     </h2>
                                 ) : (
                                     <h2 className="font-semibold text-xl mb-4 text-white">
@@ -224,7 +228,8 @@ const PageRiddler = () => {
                                                         "No verses found."}
                                                 </p>
                                                 <p className="text-center text-white text-xs mt-4 ">
-                                                    Click to expand & reveal Surah
+                                                    Click to expand & reveal
+                                                    Surah
                                                 </p>
                                             </div>
                                         )}

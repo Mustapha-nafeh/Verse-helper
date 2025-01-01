@@ -25,12 +25,26 @@ const LandingPage = () => {
                             Enhance your Quranic memorization through an
                             engaging and interactive experience
                         </p>
-                        {/* <Link
-                            to="/pages"
-                            className=" bg-pink-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
-                        >
-                            Start Challenge Now
-                        </Link> */}
+                        <div className="flex gap-x-4">
+                            <Link
+                                to="/riddles/by-page"
+                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                            >
+                                Riddle by page number
+                            </Link>
+                            <Link
+                                to="/riddles/by-verse"
+                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                            >
+                                Riddle by verse key
+                            </Link>
+                            {/* <Link
+                                to="/riddles/random"
+                                className=" bg-pink-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                            >
+                                Riddle by a random verse
+                            </Link> */}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -91,6 +91,11 @@ const VerseRiddler = () => {
             >
                 Generate Verse Key
             </button>
+
+            <p className="text-center text-white text-xs mt-2">
+                Try to guess the verse
+            </p>
+
             {verseKey && (
                 <h2 className="text-2xl mt-4">
                     Verse Key: <span className="text-pink-300">{verseKey}</span>
