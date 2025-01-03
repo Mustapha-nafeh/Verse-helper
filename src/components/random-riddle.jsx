@@ -12,8 +12,8 @@ const RandomRiddler = () => {
     const [isSecondExpanded, setIsSecondExpanded] = useState(false);
     const [countdown, setCountdown] = useState();
     const [isRevealed, setIsRevealed] = useState(false);
-    const [min, setMin] = useState();
-    const [max, setMax] = useState();
+    const [min, setMin] = useState(1);
+    const [max, setMax] = useState(604);
     const [randomVerseIndex, setRandomVerseIndex] = useState();
 
     const generateRandomPage = () => {
@@ -45,13 +45,16 @@ const RandomRiddler = () => {
 
             const secondPageResponse = await axios({
                 method: "get",
-                url: `https://api.quran.com/api/v4/quran/verses/uthmani?page_number=${page+1}`,
+                url: `https://api.quran.com/api/v4/quran/verses/uthmani?page_number=${
+                    page + 1
+                }`,
                 headers: {
                     Accept: "application/json",
                 },
             });
             setSecondPageData(secondPageResponse.data);
-            let second_surah_id = secondPageResponse.data.verses[0].verse_key.split(":")[0];
+            let second_surah_id =
+                secondPageResponse.data.verses[0].verse_key.split(":")[0];
             const secondSurahResponse = await axios({
                 method: "get",
                 url: `https://api.quran.com/api/v4/chapters/${second_surah_id}`,
@@ -62,7 +65,9 @@ const RandomRiddler = () => {
             setSecondSurahData(secondSurahResponse.data);
 
             // Generate random verse in the fetched page
-            setRandomVerseIndex(Math.floor(Math.random() * pageResponse.data.verses.length));
+            setRandomVerseIndex(
+                Math.floor(Math.random() * pageResponse.data.verses.length)
+            );
 
             setIsFetching(false);
         } catch (error) {
@@ -80,26 +85,26 @@ const RandomRiddler = () => {
     };
 
     const handleButtonClick = () => {
-        setIsRevealed(false);
+        setIsRevealed(true);
         setIsExpanded(false);
         const page = generateRandomPage();
         setPageNumber(page);
-        setCountdown(3);
+        // setCountdown(3);
         fetchVerses(page);
     };
 
-    useEffect(() => {
-        let timer;
-        if (countdown > 0) {
-            timer = setTimeout(() => {
-                setCountdown(countdown - 1);
-                if (countdown === 1) {
-                    setIsRevealed(true);
-                }
-            }, 1000);
-        }
-        return () => clearTimeout(timer);
-    }, [countdown]);
+    // useEffect(() => {
+    //     let timer;
+    //     if (countdown > 0) {
+    //         timer = setTimeout(() => {
+    //             setCountdown(countdown - 1);
+    //             if (countdown === 1) {
+    //                 setIsRevealed(true);
+    //             }
+    //         }, 1000);
+    //     }
+    //     return () => clearTimeout(timer);
+    // }, [countdown]);
 
     const arabicStyle = {
         direction: "rtl",
@@ -120,7 +125,7 @@ const RandomRiddler = () => {
                             Min:
                             <input
                                 type="number"
-                                value={min || ''}
+                                value={min || ""}
                                 onChange={(e) => setMin(Number(e.target.value))}
                                 className="text-black ml-2 p-1 rounded"
                             />
@@ -129,7 +134,7 @@ const RandomRiddler = () => {
                             Max:
                             <input
                                 type="number"
-                                value={max || ''}
+                                value={max || ""}
                                 onChange={(e) => setMax(Number(e.target.value))}
                                 className="text-black ml-2 p-1 rounded"
                             />
@@ -142,10 +147,10 @@ const RandomRiddler = () => {
                         onClick={handleButtonClick}
                         className="bg-pink-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-pink-700 transition"
                     >
-                        Generate a page number
+                        Generate a random verse
                     </button>
 
-                    {pageNumber && countdown > 0 && (
+                    {/* {pageNumber && countdown > 0 && (
                         <div className="w-full">
                             <div
                                 className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300 my-5"
@@ -159,7 +164,7 @@ const RandomRiddler = () => {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )} */}
 
                     {pageNumber && isRevealed && (
                         <div className="w-full">
@@ -169,7 +174,8 @@ const RandomRiddler = () => {
                             >
                                 {isExpanded ? (
                                     <h2 className="font-semibold text-xl mb-4 text-white">
-                                        Page {pageNumber} - {surahData?.chapter?.name_arabic}
+                                        Page {pageNumber} -{" "}
+                                        {surahData?.chapter?.name_arabic}
                                     </h2>
                                 ) : (
                                     <h2 className="font-semibold text-xl mb-4 text-white">
@@ -192,9 +198,14 @@ const RandomRiddler = () => {
                                                                 verse.id ||
                                                                 index
                                                             }
-                                                            className={`flex flex-col border border-pink-500 p-3 rounded-lg ${index === randomVerseIndex ? 'bg-green-200' : 'bg-white'}`}
+                                                            className={`flex flex-col border border-pink-500 p-3 rounded-lg ${
+                                                                index ===
+                                                                randomVerseIndex
+                                                                    ? "bg-pink-200"
+                                                                    : "bg-white"
+                                                            }`}
                                                         >
-                                                            <div className="flex items-center space-x-3"> 
+                                                            <div className="flex items-center space-x-3">
                                                                 <strong className="text-sm font-semibold text-black flex">
                                                                     Verse No.{" "}
                                                                     <span className="text-pink-500 ml-1">
@@ -232,12 +243,16 @@ const RandomRiddler = () => {
                                                     className="text-center font-bold text-lg text-pink-300"
                                                     style={arabicStyle}
                                                 >
-                                                    {pageData?.verses?.[randomVerseIndex]
-                                                        ?.text_uthmani ||
+                                                    {pageData?.verses?.[
+                                                        randomVerseIndex
+                                                    ]?.text_uthmani ||
                                                         "No verses found."}
                                                 </p>
+                                                <p className="text-center text-white text-lg mt-4 ">
+                                                    GUESS THE NEXT VERSE
+                                                </p>
                                                 <p className="text-center text-white text-xs mt-4 ">
-                                                    Click to expand & reveal Surah
+                                                    Click to reveal answer
                                                 </p>
                                             </div>
                                         )}
@@ -254,11 +269,14 @@ const RandomRiddler = () => {
                         <div className="w-full">
                             <div
                                 className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300 mb-10"
-                                onClick={() => setIsSecondExpanded(!isSecondExpanded)}
+                                onClick={() =>
+                                    setIsSecondExpanded(!isSecondExpanded)
+                                }
                             >
                                 {isSecondExpanded ? (
                                     <h2 className="font-semibold text-xl mb-4 text-white">
-                                        Page {pageNumber + 1} - {secondSurahData?.chapter?.name_arabic}
+                                        Page {pageNumber + 1} -{" "}
+                                        {secondSurahData?.chapter?.name_arabic}
                                     </h2>
                                 ) : (
                                     <h2 className="font-semibold text-xl mb-4 text-white">

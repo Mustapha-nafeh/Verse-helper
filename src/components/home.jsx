@@ -28,15 +28,21 @@ const LandingPage = () => {
                         <div className="flex gap-x-4">
                             <Link
                                 to="/riddles/by-page"
-                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
                             >
                                 Riddle by page number
                             </Link>
                             <Link
                                 to="/riddles/by-verse"
-                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg font-semibold hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
                             >
                                 Riddle by verse key
+                            </Link>
+                            <Link
+                                to="/riddles/random"
+                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                            >
+                                Riddle by Random verse
                             </Link>
                             {/* <Link
                                 to="/riddles/random"
@@ -52,7 +58,7 @@ const LandingPage = () => {
             {/* the image component from before */}
 
             {/* How It Works Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn">
+            {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn">
                 <h2 className="text-3xl font-bold text-center text-white mb-6">
                     How It <span className="text-pink-500">Works</span>
                 </h2>
@@ -97,10 +103,11 @@ const LandingPage = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
 
             {/* Features Section */}
-            <div className="bg-gradient-to-b from-pink-500/5 to-transparent animate-fadeIn">
+
+            {/* <div className="bg-gradient-to-b from-pink-500/5 to-transparent animate-fadeIn">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <h2 className="text-3xl font-bold text-center text-white mb-12">
                         Perfect for{" "}
@@ -140,15 +147,11 @@ const LandingPage = () => {
                                 <p className="text-pink-200 mb-4">
                                     {feature.description}
                                 </p>
-                                {/* <button className="text-pink-500 hover:text-pink-400 transition-colors duration-300 flex items-center">
-                                    Learn more{" "}
-                                    <ChevronRight className="w-4 h-4 ml-1" />
-                                </button> */}
                             </div>
                         ))}
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Call to Action */}
             {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
@@ -168,13 +171,13 @@ const LandingPage = () => {
             </div> */}
 
             {/* Footer */}
-            <footer className="border-t border-pink-500/20">
+            {/* <footer className="border-t border-pink-500/20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <p className="text-center text-pink-200">
                         Built with ❤️ for the Ummah
                     </p>
                 </div>
-            </footer>
+            </footer> */}
         </div>
     );
 };
