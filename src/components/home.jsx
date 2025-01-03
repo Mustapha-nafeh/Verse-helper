@@ -11,36 +11,34 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen">
             {/* Hero Section */}
             <div className="relative overflow-hidden animate-fadeIn">
-                <div className="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 relative">
                     <div className="text-center flex flex-col items-center">
                         <h1 className="text-3xl font-bold text-white mb-6">
-                            Quran Page/verse{" "}
-                            <span className="text-pink-500">Challenge</span>
+                            Quran{" "}
+                            <span className="text-pink-500">Assistant</span>
                         </h1>
                         <p className="text-xl text-pink-200 mb-8 max-w-2xl mx-auto">
-                            Enhance your Quranic memorization through an
-                            engaging and interactive experience
+                            Your electronic Quran memorization assistant
                         </p>
-                        <div className="flex gap-x-4">
+                        <div className="flex flex-col lg:flex-row gap-x-4 gap-y-4">
                             <Link
                                 to="/riddles/by-page"
-                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                                className=" bg-pink-500 text-white px-4 py-2 rounded-lg text-md  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/40"
                             >
                                 Riddle by page number
                             </Link>
                             <Link
                                 to="/riddles/by-verse"
-                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                                className=" bg-pink-500 text-white px-4 py-2 rounded-lg text-md  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/40"
                             >
                                 Riddle by verse key
                             </Link>
                             <Link
                                 to="/riddles/random"
-                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-lg  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                                className=" bg-pink-500 text-white px-8 py-2 rounded-lg text-md  hover:bg-pink-600 transition-all duration-300 shadow-lg shadow-pink-500/40"
                             >
                                 Riddle by Random verse
                             </Link>

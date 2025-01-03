@@ -81,10 +81,8 @@ const VerseRiddler = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center mt-[5%] bg-black text-white animate-fadeIn">
-            <h1 className="text-4xl font-bold text-pink-500 mb-6 ">
-                Riddle the verse
-            </h1>
+        <div className="min-h-screen flex flex-col items-center mt-[18%] md:mt-[10%] text-white animate-fadeIn">
+            <h1 className="text-3xl  text-pink-500 mb-6 ">Riddle the verse</h1>
             <button
                 onClick={handleButtonClick}
                 className="bg-pink-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-pink-700 transition"

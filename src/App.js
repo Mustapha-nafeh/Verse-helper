@@ -14,7 +14,7 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router basename="/Verse-helper">
-                <div className="bg-black">
+                <div className="bg-black bg-gradient-to-b from-pink-500/10 to-transparent">
                     <Navbar />
                     <div className=" flex justify-around w-full">
                         <div className="justify-center w-[80%] ">

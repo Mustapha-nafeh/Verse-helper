@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, StarsIcon } from "lucide-react";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -99,9 +99,9 @@ const Navbar = () => {
                     {/* Logo */}
                     <Link
                         to="/"
-                        className="text-pink-500 text-2xl font-bold hover:text-pink-400 transition duration-300"
+                        className="text-pink-500 text-2xl font-extralight italic hover:text-pink-400 transition duration-300 font-sans"
                     >
-                        Quran Riddle
+                        MovoDeen
                     </Link>
 
                     {/* Desktop Navigation */}

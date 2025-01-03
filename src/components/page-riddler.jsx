@@ -86,11 +86,9 @@ const PageRiddler = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center mt-[5%] bg-black text-pink-500 animate-fadeIn">
+        <div className="min-h-screen flex flex-col items-center mt-[18%] md:mt-[10%] text-pink-500 animate-fadeIn">
             <div className="max-w-4xl w-full">
-                <h1 className="text-4xl font-bold mb-6 text-center">
-                    Riddle the page
-                </h1>
+                <h1 className="text-3xl mb-6 text-center">Riddle the page</h1>
 
                 <div className="flex justify-center space-x-4 mb-4">
                     <div className="flex flex-col items-center space-y-4 ">

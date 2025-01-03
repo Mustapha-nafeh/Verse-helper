@@ -87,24 +87,11 @@ const RandomRiddler = () => {
     const handleButtonClick = () => {
         setIsRevealed(true);
         setIsExpanded(false);
+        setIsSecondExpanded(false);
         const page = generateRandomPage();
         setPageNumber(page);
-        // setCountdown(3);
         fetchVerses(page);
     };
-
-    // useEffect(() => {
-    //     let timer;
-    //     if (countdown > 0) {
-    //         timer = setTimeout(() => {
-    //             setCountdown(countdown - 1);
-    //             if (countdown === 1) {
-    //                 setIsRevealed(true);
-    //             }
-    //         }, 1000);
-    //     }
-    //     return () => clearTimeout(timer);
-    // }, [countdown]);
 
     const arabicStyle = {
         direction: "rtl",
@@ -113,11 +100,9 @@ const RandomRiddler = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center mt-[5%] bg-black text-pink-500 animate-fadeIn">
+        <div className="min-h-screen flex flex-col items-center mt-[18%] md:mt-[10%]  text-pink-500 animate-fadeIn">
             <div className="max-w-4xl w-full">
-                <h1 className="text-4xl font-bold mb-6 text-center">
-                    Riddle the page
-                </h1>
+                <h1 className="text-3xl  mb-6 text-center">Riddle the page</h1>
 
                 <div className="flex justify-center space-x-4 mb-4">
                     <div className="flex flex-col items-center space-y-4">
@@ -145,7 +130,7 @@ const RandomRiddler = () => {
                 <div className="flex flex-col items-center space-y-4">
                     <button
                         onClick={handleButtonClick}
-                        className="bg-pink-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-pink-700 transition"
+                        className="bg-pink-500 cursor-pointer text-white px-6 py-2 rounded-lg text-lg hover:bg-pink-700 transition"
                     >
                         Generate a random verse
                     </button>
@@ -201,7 +186,7 @@ const RandomRiddler = () => {
                                                             className={`flex flex-col border border-pink-500 p-3 rounded-lg ${
                                                                 index ===
                                                                 randomVerseIndex
-                                                                    ? "bg-pink-200"
+                                                                    ? "bg-pink-800"
                                                                     : "bg-white"
                                                             }`}
                                                         >
