@@ -61,21 +61,11 @@ const QuranPages = () => {
   };
 
   const handleExpandPage = async (pageNumber) => {
-    const nextPage = pageNumber + 1;
-    const pagesToFetch = [];
     if (!pages[pageNumber - 1]?.verses?.length) {
-      pagesToFetch.push(pageNumber);
-    }
-    if (nextPage <= 606 && !pages[nextPage - 1]?.verses?.length) {
-      pagesToFetch.push(nextPage);
-    }
-    if (pagesToFetch.length > 0) {
-      const loaded = await Promise.all(pagesToFetch.map((p) => fetchPage(p)));
+      const newPageData = await fetchPage(pageNumber);
       setPages((prev) => {
         const updatedPages = [...prev];
-        loaded.forEach((data) => {
-          updatedPages[data.pageNumber - 1] = data;
-        });
+        updatedPages[pageNumber - 1] = newPageData;
         return updatedPages;
       });
     }
@@ -143,47 +133,36 @@ const QuranPages = () => {
                         {firstVerse}
                       </p>
                       {expandedPages[pageNumber] && (
-                        <div className="mt-2 space-y-4">
-                          {[pageNumber, pageNumber + 1].map((pNum) => {
-                            if (pNum > 606) return null;
-                            const pData = pages[pNum - 1] || {};
-                            return (
-                              <div key={pNum} className="shadow-lg">
-                                <h3 className="font-semibold text-md text-pink-600 mb-2">
-                                  Page {pNum}
-                                </h3>
-                                {pData.verses?.map((verse, index) => (
-                                  <p
-                                    key={verse.id}
-                                    className="flex flex-col border border-1 border-pink-500 p-3 rounded-lg "
-                                  >
-                                    <div className="flex items-center space-x-3">
-                                      <FaBookOpen className="text-black text-md" />
-                                      <strong className="text-sm font-semibold text-black flex">
-                                        Verse No.{" "}
-                                        <span className="text-pink-500">
-                                          {index + 1}
-                                        </span>
-                                        <span className="text-pink-500">
-                                          &nbsp;
-                                          {"("}
-                                          {verse.verse_key}
-                                          {")"}
-                                        </span>
-                                      </strong>
-                                    </div>
-
-                                    <span
-                                      className="font-bold text-lg text-black"
-                                      style={arabicStyle}
-                                    >
-                                      {verse.text_uthmani}
-                                    </span>
-                                  </p>
-                                ))}
+                        <div className="mt-2 shadow-lg">
+                          {pageData.verses?.map((verse, index) => (
+                            <p
+                              key={verse.id}
+                              className="flex flex-col border border-1 border-pink-500 p-3 rounded-lg "
+                            >
+                              <div className="flex items-center space-x-3">
+                                <FaBookOpen className="text-black text-md" />
+                                <strong className="text-sm font-semibold text-black flex">
+                                  Verse No.{" "}
+                                  <span className="text-pink-500">
+                                    {index + 1}
+                                  </span>
+                                  <span className="text-pink-500">
+                                    &nbsp;
+                                    {"("}
+                                    {verse.verse_key}
+                                    {")"}
+                                  </span>
+                                </strong>
                               </div>
-                            );
-                          })}
+
+                              <span
+                                className="font-bold text-lg text-black"
+                                style={arabicStyle}
+                              >
+                                {verse.text_uthmani}
+                              </span>
+                            </p>
+                          ))}
                         </div>
                       )}
                     </div>
