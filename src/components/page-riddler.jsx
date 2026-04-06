@@ -4,70 +4,61 @@ import axios from "axios";
 
 const PageRiddler = () => {
   const [pageNumber, setPageNumber] = useState(null);
-  const [pageData, setPageData] = useState([null, null]);
-  const [surahData, setSurahData] = useState([null, null]);
+  const [pageData, setPageData] = useState(null);
+  const [surahData, setSurahData] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [isExpanded, setIsExpanded] = useState([false, false]);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [isRevealed, setIsRevealed] = useState(false);
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(604);
 
   const generateRandomPage = () => {
-    const effectiveMax = Math.min(max, 603);
-    return Math.floor(Math.random() * (effectiveMax - min + 1)) + min;
-  };
-
-  const fetchVersesForPage = async (page) => {
-    const pageResponse = await axios({
-      method: "get",
-      url: `https://api.quran.com/api/v4/quran/verses/uthmani?page_number=${page}`,
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    let surah_id = pageResponse.data.verses[0].verse_key.split(":")[0];
-    const surahResponse = await axios({
-      method: "get",
-      url: `https://api.quran.com/api/v4/chapters/${surah_id}`,
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    return { pageData: pageResponse.data, surahData: surahResponse.data };
+    // return Math.floor(Math.random() * 604) + 1;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
   const fetchVerses = async (page) => {
     setIsFetching(true);
-    setPageData([null, null]);
+    setPageData(null);
 
     try {
-      const [first, second] = await Promise.all([
-        fetchVersesForPage(page),
-        fetchVersesForPage(page + 1),
-      ]);
-      setPageData([first.pageData, second.pageData]);
-      setSurahData([first.surahData, second.surahData]);
+      const pageResponse = await axios({
+        method: "get",
+        url: `https://api.quran.com/api/v4/quran/verses/uthmani?page_number=${page}`,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      setPageData(pageResponse.data);
+
+      let surah_id = pageResponse.data.verses[0].verse_key.split(":")[0];
+      const surahResponse = await axios({
+        method: "get",
+        url: `https://api.quran.com/api/v4/chapters/${surah_id}`,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      setSurahData(surahResponse.data);
+
       setIsFetching(false);
     } catch (error) {
       console.error(error);
-      const errorData = {
+      setPageData({
         verses: [
           {
             text_uthmani: "Error fetching verses. Please try again.",
           },
         ],
-      };
-      setPageData([errorData, errorData]);
+      });
       setIsFetching(false);
     }
   };
 
   const handleButtonClick = () => {
     setIsRevealed(false);
-    setIsExpanded([false, false]);
+    setIsExpanded(false);
     const page = generateRandomPage();
     setPageNumber(page);
     setCountdown(5);
@@ -135,9 +126,12 @@ const PageRiddler = () => {
 
           {pageNumber && countdown > 0 && (
             <div className="w-full">
-              <div className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300">
+              <div
+                className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300"
+                onClick={() => setIsExpanded(!isExpanded)}
+              >
                 <h2 className="font-semibold text-xl mb-4 text-white">
-                  Pages {pageNumber} & {pageNumber + 1}
+                  Page {pageNumber}
                 </h2>
                 <div className="flex justify-center w-full animate-pulse text-5xl">
                   {countdown}
@@ -154,80 +148,71 @@ const PageRiddler = () => {
                         </div> */}
 
           {pageNumber && isRevealed && (
-            <div className="w-full space-y-4">
-              {[0, 1].map((idx) => (
-                <div
-                  key={idx}
-                  className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300"
-                  onClick={() =>
-                    setIsExpanded((prev) => {
-                      const next = [...prev];
-                      next[idx] = !next[idx];
-                      return next;
-                    })
-                  }
-                >
-                  {isExpanded[idx] ? (
-                    <h2 className="font-semibold text-xl mb-4 text-white">
-                      Page {pageNumber + idx} -{" "}
-                      {surahData[idx]?.chapter?.name_arabic}
-                    </h2>
-                  ) : (
-                    <h2 className="font-semibold text-xl mb-4 text-white">
-                      Page {pageNumber + idx}
-                    </h2>
-                  )}
+            <div className="w-full">
+              <div
+                className="border border-pink-500 rounded-lg p-4 cursor-pointer hover:bg-pink-950/20 transition-all duration-300 "
+                onClick={() => setIsExpanded(!isExpanded)}
+              >
+                {isExpanded ? (
+                  <h2 className="font-semibold text-xl mb-4 text-white">
+                    Page {pageNumber} - {surahData?.chapter?.name_arabic}
+                  </h2>
+                ) : (
+                  <h2 className="font-semibold text-xl mb-4 text-white">
+                    Page {pageNumber}
+                  </h2>
+                )}
 
-                  {isFetching ? (
-                    <p className="text-center">Loading verses...</p>
-                  ) : (
-                    <div className="space-y-4">
-                      {isExpanded[idx] ? (
-                        <div className="space-y-4">
-                          {pageData[idx]?.verses?.map((verse, index) => (
-                            <div
-                              key={verse.id || index}
-                              className="flex flex-col border border-pink-500 p-3 rounded-lg bg-white"
-                            >
-                              <div className="flex items-center space-x-3">
-                                <strong className="text-sm font-semibold text-black flex">
-                                  Verse No.{" "}
-                                  <span className="text-pink-500 ml-1">
-                                    {index + 1}
-                                  </span>
-                                  <span className="text-pink-500">
-                                    &nbsp;(
-                                    {verse.verse_key || `${index + 1}`})
-                                  </span>
-                                </strong>
-                              </div>
-                              <span
-                                className="font-bold text-lg text-black mt-2"
-                                style={arabicStyle}
-                              >
-                                {verse.text_uthmani}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div>
-                          <p
-                            className="text-center font-bold text-lg text-pink-300"
-                            style={arabicStyle}
+                {isFetching ? (
+                  <p className="text-center">Loading verses...</p>
+                ) : (
+                  <div className="space-y-4">
+                    {isExpanded ? (
+                      <div className="space-y-4">
+                        {pageData?.verses?.map((verse, index) => (
+                          <div
+                            key={verse.id || index}
+                            className="flex flex-col border border-pink-500 p-3 rounded-lg bg-white"
                           >
-                            {pageData[idx]?.verses?.[0]?.text_uthmani ||
-                              "No verses found."}
-                          </p>
-                          <p className="text-center text-white text-xs mt-4">
-                            Click to expand & reveal Surah
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
+                            <div className="flex items-center space-x-3">
+                              {/* <FaBookOpen className="text-black" /> */}
+                              <strong className="text-sm font-semibold text-black flex">
+                                Verse No.{" "}
+                                <span className="text-pink-500 ml-1">
+                                  {index + 1}
+                                </span>
+                                <span className="text-pink-500">
+                                  &nbsp;(
+                                  {verse.verse_key || `${index + 1}`})
+                                </span>
+                              </strong>
+                            </div>
+                            <span
+                              className="font-bold text-lg text-black mt-2"
+                              style={arabicStyle}
+                            >
+                              {verse.text_uthmani}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div>
+                        <p
+                          className="text-center font-bold text-lg text-pink-300"
+                          style={arabicStyle}
+                        >
+                          {pageData?.verses?.[0]?.text_uthmani ||
+                            "No verses found."}
+                        </p>
+                        <p className="text-center text-white text-xs mt-4 ">
+                          Click to expand & reveal Surah
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
